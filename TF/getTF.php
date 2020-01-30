@@ -12,7 +12,7 @@ $site = $stmt->fetch(PDO::FETCH_ASSOC);
 
 preg_match('#<h2>(.*?)</h2>#is', $single_curl, $title);
 
-preg_match('#<div id="chapter-c" class="chapter-c">(.*?)<hr class="chapter-end">#is', $single_curl, $content);
+preg_match('#<div id="chapter-c" class="chapter-c">(.*?)</div><div class="col-xs-12 text-center no-padding">#is', $single_curl, $content);
 
 $tieude = strip_tags($title[1]);
 $tieude = preg_replace('/chương 0+(\d+)/iu', 'Chương $1', $tieude);
