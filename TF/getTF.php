@@ -2,38 +2,30 @@
 
 include '../db.php';
 include '../functions.php';
-
-$single_curl = single_curl($_GET['link']);
+include '../simple_html_dom.php';
 
 $query = "SELECT * FROM site WHERE slug = :slug";
 $stmt = $db->prepare($query);
 $stmt->execute(array(':slug' => $_GET['slug']));
 $site = $stmt->fetch(PDO::FETCH_ASSOC);
 
-preg_match('#<h2>(.*?)</h2>#is', $single_curl, $title);
+$html = file_get_html($_GET['link']);
 
-preg_match('#<div id="chapter-c" class="chapter-c">(.*?)</div><div class="col-xs-12 text-center no-padding">#is', $single_curl, $content);
+$tieude = $html->find('h2', 0)->plaintext;
 
-$tieude = strip_tags($title[1]);
-$tieude = preg_replace('/chương 0+(\d+)/iu', 'Chương $1', $tieude);
-$noidung = $content[1];
+$raw = $html->find('div#chapter-c', 0);
+$noidung = remove($raw, $site['remove']);
 
-$noidung = str_replace("<em>*Chương này có nội dung ảnh, nếu bạn không thấy nội dung chương, vui lòng bật chế độ hiện hình ảnh của trình duyệt để đọc.</em>", "", $noidung);
-
-$noidung = preg_replace('/<img[^>]*>/', '', $noidung);
-$noidung = preg_replace('#<a(.*?)</a>#is', '', $noidung);
-$noidung = preg_replace('#<script(.*?)</script>#is', '', $noidung);
-$noidung = preg_replace('#<style(.*?)</style>#is', '', $noidung);
 // nl2p
 if ($site['nl2p'] == 'yes') {
-	$noidung = preg_replace('/\s+/', ' ', $noidung);
 	$noidung = strip_tags($noidung, '<br><p>');
 	$noidung = preg_replace('/((<br\s*\/?>|<\/?p>)\s*)+/', "\n", $noidung);
 	$noidung = nl2p($noidung);
-	$noidung = preg_replace('/>Chương\s*\d+.*?</iu', '><', $noidung);
 }
 
 // fix
+$noidung = str_replace("<em>*Chương này có nội dung ảnh, nếu bạn không thấy nội dung chương, vui lòng bật chế độ hiện hình ảnh của trình duyệt để đọc.</em>", "", $noidung);
+
 $noidung = preg_replace(array('/Bạn đang đọc truyện được copy tại/iu', '/Bạn đang đọc truyện được lấy tại/iu', '/Bạn đang đọc truyện tại/iu', '/Text được lấy tại/iu', '/nguồn truyện\s*:/iu', '/nguồn\s*:/iu', '/chấm cơm\.?/iu', '/www\s*\./i', '/https?\s*:\s*\/?\/?/i', '/\.\s*vn/i', '/\.\s*com/iu', '/Truyen\s*FULL/iu', '/truyện\s*full/iu', '/Đọc Truyện Online Tại/iu', '/Đọc Truyện Kiếm Hiệp Hay Nhất\:?/iu', '/Truyện.{1,10}Hiệp/iu', '/truyenyy/iu', '/Truyện\s*YY/iu', '/\(adsbygoogle \= window\.adsbygoogle \|\| \[\]\)\.push\(\{\}\);/'), '', $noidung);
 
 // loc
@@ -63,3 +55,10 @@ foreach ($regexs as $regex) {
 }
 
 echo "$tieude<br>➥<br>➥<br><br>$noidung<br>⊙⊙";
+
+function remove($nguon, $xoa) {
+	foreach ($nguon->find($xoa) as $node) {
+		$node->outertext = '';
+	}
+	return $nguon->innertext;
+}
