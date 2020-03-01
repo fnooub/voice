@@ -35,7 +35,7 @@ if ($regex['flag'] == 'u') {
 } elseif ($regex['flag'] == 'td') {
 	$td = 'checked=checked';
 } else {
-	$g = null;
+	$g = 'checked=checked';
 }
 
 ?>
@@ -59,6 +59,7 @@ if ($regex['flag'] == 'u') {
 	<input type="hidden" name="id" value="<?php echo $regex['id'] ?>">
 	<textarea name="s"><?php echo $regex['s'] ?></textarea>
 	<textarea name="r"><?php echo $regex['r'] ?></textarea>
+	<input type="radio" name="flag" value="g" <?php if(isset($g)) echo $g ?>> <b>/g</b>
 	<input type="radio" name="flag" value="u" <?php if(isset($u)) echo $u ?>> <b>/u</b>
 	<input type="radio" name="flag" value="i" <?php if(isset($i)) echo $i ?>> <b>/i</b>
 	<input type="radio" name="flag" value="is" <?php if(isset($is)) echo $is ?>> <b>#is</b>

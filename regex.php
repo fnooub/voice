@@ -11,6 +11,9 @@ $site = $stmt->fetch(PDO::FETCH_ASSOC);
 if (isset($_POST['submit'])) {
 	extract($_POST);
 	$flag = isset($flag) ? $flag : 'g';
+	if ($space) {
+		$s = str_split_search($s);
+	}
 	if (!empty($s)) {
 		$query = "INSERT INTO regex (s, r, flag, site_id) values (:s, :r, :flag, :site_id)";
 		$stmt = $db->prepare($query);
@@ -52,6 +55,12 @@ if(isset($_GET['xoa_site'])){
 	exit;
 } 
 
+function str_split_search($str)
+{
+	$str = preg_replace('/\s+/', '', $str);
+	$str = preg_split('/(?<!^)(?!$)/u', $str );
+	return implode("\s*", $str);
+}
 ?>
 <title>Regex</title>
 <meta charset="UTF-8">
@@ -72,6 +81,7 @@ if(isset($_GET['xoa_site'])){
 	<input type="radio" name="flag" value="is"> <b>#is</b>
 	<input type="radio" name="flag" value="iu"> <b>/iu</b>
 	<input type="radio" name="flag" value="td"> <b>/tđ</b>
+	<input type="radio" name="space"> <b>/sp</b>
 	<input type="submit" name="submit" value="Replace">
 </form>
 <p><a href="?xoa_site=<?php echo $site['id'] ?>" onclick = "if (! confirm('Xoá site?')) { return false; }">Xoá site</a> | <a href="config_site.php?slug=<?php echo $site['slug'] ?>">Config site</a><?php if ($site['slug'] == 'userscript'): ?> | <a href="userscript.php?slug=<?php echo $site['slug'] ?>">Userscript</a><?php endif ?></p>
