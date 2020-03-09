@@ -81,7 +81,7 @@ function str_split_search($str)
 	<input type="radio" name="flag" value="is"> <b>#is</b>
 	<input type="radio" name="flag" value="iu"> <b>/iu</b>
 	<input type="radio" name="flag" value="td"> <b>/tđ</b>
-	<input type="radio" name="space"> <b>/sp</b>
+	<input type="checkbox" name="space"> <b>/sp</b>
 	<input type="submit" name="submit" value="Replace">
 </form>
 <p><a href="?xoa_site=<?php echo $site['id'] ?>" onclick = "if (! confirm('Xoá site?')) { return false; }">Xoá site</a> | <a href="config_site.php?slug=<?php echo $site['slug'] ?>">Config site</a><?php if ($site['slug'] == 'userscript'): ?> | <a href="userscript.php?slug=<?php echo $site['slug'] ?>">Userscript</a><?php endif ?></p>
