@@ -10,7 +10,7 @@ if (isset($_POST['link'])) {
 	} elseif (preg_match('/truyen\.tangthuvien\.vn\/doc-truyen\/(.*)/', $_POST['link'], $flags)) {
 		$flag = 'ttv';
 		$link = $flags[1];
-	} elseif (preg_match('/truyenfull\.net\/(.*?)\//', $_POST['link'], $flags)) {
+	} elseif (preg_match('/truyenfull\.vn\/(.*?)\//', $_POST['link'], $flags)) {
 		$flag = 'tf';
 		$link = $flags[1];
 	}
@@ -66,7 +66,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		} elseif ($post['flag'] == 'ttv') {
 			$fl = 'https://truyen.tangthuvien.vn/doc-truyen/' . $post['slug'];
 		} elseif ($post['flag'] == 'tf') {
-			$fl = 'https://truyenfull.net/' . $post['slug'] . '/';
+			$fl = 'https://truyenfull.vn/' . $post['slug'] . '/';
 		}
 	?>
 	<pre><a href="config_site.php?slug=<?php echo $post['slug'] ?>"><?php echo $post['name'] ?></a> <a href="regex.php?slug=<?php echo $post['slug'] ?>" style="background-color: yellow">Regex</a> <a href="<?php echo $fl ?>"><span style="background-color: #c9f795"><?php echo $post['flag'] ?></span></a></pre>
