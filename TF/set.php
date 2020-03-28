@@ -7,7 +7,7 @@ if (isset($_POST['link'])) {
 
 	$link = $_POST['link'];
 
-	if (!preg_match('/truyenfull\.net/', $link)) {
+	if (!preg_match('/truyenfull\.vn/', $link)) {
 		$status = 'Error!';
 	} else {
 		$single_curl = single_curl($link);
@@ -82,7 +82,7 @@ if (isset($_POST['link'])) {
 		<p><?php echo $status ?></p>
 	<?php endif ?>
 	<form method="post">
-		<input type="text" name="link" value="<?php if(isset($_GET['link'])) { echo 'https://truyenfull.net/' . $_GET['link'] . '/'; } ?>" style="width: 100%">
+		<input type="text" name="link" value="<?php if(isset($_GET['link'])) { echo 'https://truyenfull.vn/' . $_GET['link'] . '/'; } ?>" style="width: 100%">
 		<input type="submit" value="SET" style="width: 100%; padding: 5px 0; margin-top: 5px">
 	</form>
 </html>
