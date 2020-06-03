@@ -7,7 +7,8 @@ $slug = $_GET['slug'];
 $s = $_GET['s'];
 $e = $_GET['e'];
 
-$HOME = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
+$protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
+$HOME = $protocol . $_SERVER["SERVER_NAME"];
 
 for ($i = $s; $i <= $e; $i++) { 
 	$urls[] = $HOME . '/getTCV.php?link=' . $link . 'chuong-' . $i . '/&slug=' . $slug;
