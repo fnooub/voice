@@ -2,7 +2,7 @@
 
 function base_url()
 {
-	return 'http://localhost/voice_tcv';
+	return 'https://eakar.herokuapp.com';
 }
 
 function single_curl($link)
