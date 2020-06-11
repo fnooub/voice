@@ -1,5 +1,10 @@
 <?php
 
+function base_url()
+{
+	return 'http://localhost/voice_tcv';
+}
+
 function single_curl($link)
 {
 	// Tạo mới một cURL

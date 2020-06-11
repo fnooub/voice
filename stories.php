@@ -26,6 +26,9 @@ if (isset($_GET['xoa_id'])) {
 	exit;
 }
 
+include 'navbar.php';
+echo '<p><a href="TTV/set.php">TTV set</a> | <a href="TF/set.php">TF set</a></p>';
+
 foreach ($result as $row) {
 	if ($row['flag'] == 'ttv') {
 		$url = 'TTV/data.php?name='.$row['name'];

@@ -4,11 +4,9 @@ include '../functions.php';
 
 $s = $_GET['s'];
 $e = $_GET['e']+1;
-$protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
-$HOME = $protocol . $_SERVER["SERVER_NAME"];
 
 // lay tu 1 den 2
-preg_match('#\['.$s.'\](.*?)\['.$e.'\]#is', file_get_contents($HOME . '/TF/data.php?name='.$_GET['name']), $links);
+preg_match('#\['.$s.'\](.*?)\['.$e.'\]#is', file_get_contents(base_url() . '/TF/data.php?name='.$_GET['name']), $links);
 
 // lay link tu 1 den 2
 preg_match_all('#</a> <a href="(.*?)"#is', $links[1], $lists);

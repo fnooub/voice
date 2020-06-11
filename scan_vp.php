@@ -64,12 +64,6 @@ function clean_special($string)
 	return trim($string);
 }
 
-function mb_str_split( $string ) {
-	# Split at all position not after the start: ^
-	# and not before the end: $
-	return preg_split('/(?<!^)(?!$)/u', $string );
-}
-
 function length_word($string)
 {
 	$string = preg_replace('/\s+/', ' ', $string);

@@ -3,8 +3,6 @@
 include 'db.php';
 include 'functions.php';
 
-$HOME = 'http://' . $_SERVER["SERVER_NAME"];
-
 if (isset($_POST['submit'])) {
 
 	extract($_POST);
@@ -54,10 +52,10 @@ if (isset($_POST['submit'])) {
 			}
 			$data .= '</div>';
 		}elseif ($flag == 'ttv') {
-			$single_curl = single_curl($HOME.'/TTV/data.php?name='.$link);
+			$single_curl = single_curl(base_url().'/TTV/data.php?name='.$link);
 			preg_match_all('/<font color="black">\[\d+\]<\/font>.*?href="(.*?)">(.*?)<\/a><\/div>/', $single_curl, $lists);
 			$data = '';
-			$data .= '<p><a style="background-color: yellow; display: block; padding: 10px;" href="'.$HOME.'/TTV/get.php?name='.$link.'&s='.$start.'&e='.$end.'">
+			$data .= '<p><a style="background-color: yellow; display: block; padding: 10px;" href="'.base_url().'/TTV/get.php?name='.$link.'&s='.$start.'&e='.$end.'">
 				get.php?name='.$link.'&s='.$start.'&e='.$end.'
 			</a></p>';
 			$data .= '<div style="white-space: nowrap;overflow: auto;">';
@@ -71,10 +69,10 @@ if (isset($_POST['submit'])) {
 			$data .= '</div>';
 
 		} elseif ($flag == 'tf') {
-			$single_curl = single_curl($HOME.'/TF/data.php?name='.$link);
+			$single_curl = single_curl(base_url().'/TF/data.php?name='.$link);
 			preg_match_all('/<font color="black">\[\d+\]<\/font>.*?href="(.*?)">(.*?)<\/a><\/div>/', $single_curl, $lists);
 			$data = '';
-			$data .= '<p><a style="background-color: yellow; display: block; padding: 10px;" href="'.$HOME.'/TF/get.php?name='.$link.'&s='.$start.'&e='.$end.'">
+			$data .= '<p><a style="background-color: yellow; display: block; padding: 10px;" href="'.base_url().'/TF/get.php?name='.$link.'&s='.$start.'&e='.$end.'">
 				get.php?name='.$link.'&s='.$start.'&e='.$end.'
 			</a></p>';
 			$data .= '<div style="white-space: nowrap;overflow: auto;">';
@@ -143,4 +141,4 @@ $site = $stmt->fetch(PDO::FETCH_ASSOC);
 <hr>
 <a href="regex.php?slug=<?php echo $site['slug'] ?>">Regex</a>
 <hr>
-<a href="site.php">Site</a> | <a href="bookmark.php">Bookmark</a> | <a href="note.php">Note</a> | <a href="stories.php">Stories</a> | <a href="size_database.php">Size</a> | <a href="scan_vp.php">VP</a>
+<?php include 'navbar.php'; ?>
