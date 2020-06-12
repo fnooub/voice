@@ -2,7 +2,7 @@
 
 function base_url()
 {
-	return 'https://eakar.herokuapp.com';
+	return 'https://eakar.ga';
 }
 
 function single_curl($link)
