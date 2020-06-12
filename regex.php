@@ -72,6 +72,8 @@ function str_split_search($str)
 		margin: 5px 0;
 	}
 </style>
+<?php include 'navbar.php'; ?>
+<hr>
 <form action="?slug=<?php echo $site['slug'] ?>" method="post">
 	<input type="hidden" name="site_id" value="<?php echo $site['id'] ?>">
 	<textarea name="s" style="width: 100%;"></textarea>
