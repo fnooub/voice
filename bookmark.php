@@ -58,7 +58,7 @@ $bms = $stmt->fetchAll(PDO::FETCH_ASSOC);
     width: 100%;
   }
 </style>
-
+<?php include 'navbar.php'; ?>
 <form action="bookmark.php" method="get">
   <textarea name="title"></textarea>
   <input type="submit" value="Viết" />
