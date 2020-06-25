@@ -14,13 +14,13 @@ function with($form, $password, $scope=null) {
   session_start();
 
   # Check the POST for access
-  if( isset($_POST['password']) == $password ) {
+  if( $_POST['password'] == $password ) {
     $_SESSION[$session_key] = true;
     redirect(current_url());
   }
 
   # If user has access then simply return so original page can render.
-  if( isset($_SESSION[$session_key]) ) return;
+  if( $_SESSION[$session_key] ) return;
 
   require $form;
   exit;
@@ -31,7 +31,7 @@ function with($form, $password, $scope=null) {
 function current_url($script_only=false) {
   $protocol = 'http';
   $port = ':'.$_SERVER["SERVER_PORT"];
-  if(isset($_SERVER["HTTPS"]) == 'on') $protocol .= 's';
+  if($_SERVER["HTTPS"] == 'on') $protocol .= 's';
   if($protocol == 'http' && $port == ':80') $port = '';
   if($protocol == 'https' && $port == ':443') $port = '';
   $path = $script_only ? $_SERVER['SCRIPT_NAME'] : $_SERVER['REQUEST_URI'];
