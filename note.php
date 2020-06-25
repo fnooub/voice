@@ -34,6 +34,7 @@ $notes = $db->query("SELECT * FROM note ORDER BY id DESC")->fetchAll(PDO::FETCH_
   	width: 100%;
   }
 </style>
+<?php include 'navbar.php'; ?>
 <form method="post">
 	<textarea name="content"></textarea>
 	<input type="submit" value="Note">
