@@ -124,10 +124,6 @@ $site = $stmt->fetch(PDO::FETCH_ASSOC);
 		padding-right: 10px;
 	}
 </style>
-<?php
-require_once 'protect.php';
-Protect\with('protect_form.php', 'h5n1');
-?>
 <?php if (isset($data)) {
 	echo $data;
 } ?>
