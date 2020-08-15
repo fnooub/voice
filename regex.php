@@ -11,8 +11,11 @@ $site = $stmt->fetch(PDO::FETCH_ASSOC);
 if (isset($_POST['submit'])) {
 	extract($_POST);
 	$flag = isset($flag) ? $flag : 'g';
-	if ($space) {
+	if (isset($space)) {
 		$s = str_split_search($s);
+	}
+	if (isset($quote)) {
+		$s = preg_quote($s);
 	}
 	if (!empty($s)) {
 		$query = "INSERT INTO regex (s, r, flag, site_id) values (:s, :r, :flag, :site_id)";
@@ -84,6 +87,7 @@ function str_split_search($str)
 	<input type="radio" name="flag" value="iu"> <b>/iu</b>
 	<input type="radio" name="flag" value="td"> <b>/tđ</b>
 	<input type="checkbox" name="space"> <b>/sp</b>
+	<input type="checkbox" name="quote"> <b>/quote</b>
 	<input type="submit" name="submit" value="Replace">
 </form>
 <p><a href="?xoa_site=<?php echo $site['id'] ?>" onclick = "if (! confirm('Xoá site?')) { return false; }">Xoá site</a> | <a href="config_site.php?slug=<?php echo $site['slug'] ?>">Config site</a><?php if ($site['slug'] == 'userscript'): ?> | <a href="userscript.php?slug=<?php echo $site['slug'] ?>">Userscript</a><?php endif ?></p>
